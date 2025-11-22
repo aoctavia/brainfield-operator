@@ -215,6 +215,7 @@ You can also embed the two images you uploaded:)
 ---
 
 # 🎞 4. Animations
+<img src="figures/comparison.gif" width="600">
 
 ### ➤ Comparison GIF (PDE vs Prediction)
 
