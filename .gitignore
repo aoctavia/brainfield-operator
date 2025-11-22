@@ -66,8 +66,8 @@ __pycache__/
 # ============================================
 # Figures (optional: keep PNG in repo if needed)
 # ============================================
-figures/
-!figures/.gitkeep   # keep folder only
+# figures/
+# !figures/.gitkeep   # keep folder only
 
 # ============================================
 # Temporary files
