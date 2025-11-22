@@ -192,13 +192,25 @@ python eval_operator.py \
 (Your actual image should be placed here.
 You can also embed the two images you uploaded:)
 
-**Sample 1**
+<!-- **Sample 1**
 
 ![gt-pred-error](./figures/sample1.png)
 
 **Sample 2**
 
-![gt-pred-error2](./figures/sample2.png)
+![gt-pred-error2](./figures/sample2.png) -->
+
+### Example: Ground Truth vs Prediction
+
+<img src="figures/comparison_example.png" width="900">
+
+### Additional Samples
+
+<img src="figures/sample_10.png" width="900">
+
+### Electric Field Animation
+
+<img src="figures/efield.gif" width="600">
 
 ---
 
