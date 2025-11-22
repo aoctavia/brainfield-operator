@@ -1,102 +1,102 @@
 # 📘 **BrainField-Operator**
 
-*A Physics-Informed Neural Operator for Bioelectromagnetic Brain Field Modeling*
+*A Physics-Informed Neural Operator Framework for Bioelectromagnetic Brain Field Modeling*
 
 ---
 
 ## 🧠 Overview
 
-**BrainField-Operator** adalah framework kecil namun powerful untuk memodelkan **potensial listrik dan medan elektromagnetik di otak** akibat stimulasi eksternal (misalnya tDCS/tACS), dengan menggabungkan:
+**BrainField-Operator** is a research-grade framework for simulating and learning **electric brain fields** induced by external stimulation (e.g., tDCS/tACS).
+It integrates:
 
-* **PDE-based modeling** (Persamaan Poisson 2D)
-* **Layered human head model** (brain–skull–scalp)
-* **Random electrode configurations**
-* **Numerical field simulation**
-* **Neural Operator surrogate learning** menggunakan **Fourier Neural Operator (FNO)** atau **UNet2D**
-* **Training, evaluation, visualization, and animation utilities**
+* **PDE-based biophysical modeling** using the Poisson equation
+* **Layered head geometry** (brain–skull–scalp)
+* **Electric field computation**
+* **Neural Operator surrogate learning** using Fourier Neural Operators (FNO)
+* **High-quality visualization and animation tools**
 
-Project ini dirancang sebagai *bridging project* yang menghubungkan **computational physics + neural operators** ke domain **computational neuroscience & brain physics**.
+This project bridges **computational physics + PDE modeling** with **computational neuroscience and neurotechnology**, closely aligned with research such as:
 
-Framework ini meniru workflow riset seperti:
-
-> *Biophysical modeling of electrical/magnetic brain signals, PDE field solvers, and machine-learning surrogate models for neurotechnology.*
+> *Biophysical modeling of electrical brain signals and the influence of external electromagnetic fields on neural dynamics (e.g., NeuroNanotech / UiO).*
 
 ---
 
 ## 🚀 Features
 
-### 🧩 PDE Modeling (Physics)
+### 🔹 **1. Biophysical PDE Simulation**
 
-* Solve Persamaan Poisson 2D untuk distribusi potensial listrik:
-  [
-  \nabla \cdot (\sigma \nabla V) = 0
-  ]
-* Geometry:
+Solves:
+[
+\nabla \cdot (\sigma \nabla V) = 0
+]
+on layered head structure:
 
-  * Brain
-  * Skull
-  * Scalp
-* Conductivity contrast realistis
-* tDCS-like electrode placement (random anode-cathode on scalp)
+* Brain
+* Skull
+* Scalp
 
-### ⚡ Electric Field Computation
+with realistic conductivity contrasts.
 
-* Compute:
+### 🔹 **2. Electrode-Based Stimulation**
 
-  * Potential field **V(x, y)**
-  * Electric field components **Ex, Ey = -∇V**
+* Randomized anode/cathode electrode placement
+* Variable potential distributions
+* tDCS-like field induction
 
-### 🤖 Neural Operator Surrogate
+### 🔹 **3. Neural Operator Surrogate**
 
-* **FNO2D** (Fourier Neural Operator)
-* **UNet2D** baseline
-* Train surrogate untuk memprediksi solusi PDE dalam sekali inference
+* Built-in **FNO2D** implementation
+* Optional **UNet2D baseline**
+* Fast surrogate for PDE solver
+* Trained to approximate ( V(x,y) )
 
-### 📊 Visualization
+### 🔹 **4. Dataset Pipeline**
 
-* Potential map & field quiver
+* Generate 100–10,000 synthetic PDE samples
+* Save to compressed `.npz`
+
+### 🔹 **5. Visualization + Animation**
+
+* Potential maps
+* Electric field quiver (Ex, Ey)
 * PDE vs Surrogate comparison
-* Animated GIF/MP4 visualizations
-
-### 🧰 Complete Utilities
-
-* Dataset generator (.npz)
-* Model checkpoints
-* Config YAML experiments
-* Logging, seed, IO helpers
+* GIF / MP4 animations
 
 ---
 
 ## 📂 Project Structure
 
-```text
+```
 brainfield-operator/
 │
-├── brainfield_operator/          # Core package
-│   ├── pde/                      # Geometry, electrodes, solver
-│   ├── data/                     # Dataset generation + PyTorch Dataset
-│   ├── models/                   # FNO2D, UNet2D
-│   ├── training/                 # Train & eval loops
-│   ├── visualization/            # Plots + animations
-│   ├── utils/                    # Logging, IO, seed
-│   └── config.py                 # Experiment configs
+├── brainfield_operator/
+│   ├── pde/               # Geometry, electrodes, conductivities, solver
+│   ├── data/              # Dataset generator + PyTorch Dataset
+│   ├── models/            # FNO2d, UNet2D
+│   ├── training/          # Train + evaluation loops
+│   ├── visualization/     # Plots, quiver, animations
+│   ├── utils/             # Logging, IO, seed
+│   └── config.py
 │
-├── experiments/                  # YAML experiment configs
-├── data/                         # (ignored) PDE datasets
-├── checkpoints/                  # (ignored) Model weights
-├── figures/                      # (ignored) Output plots
+├── experiments/
+│   ├── exp_fno_training.yaml
+│   └── exp_unet_training.yaml
 │
-├── generate_dataset.py           # Script to generate PDE dataset
-├── train_operator.py             # Train FNO/UNet surrogate
-├── eval_operator.py              # Evaluate trained model & plot results
+├── data/                  # (ignored) Generated PDE datasets
+├── checkpoints/           # (ignored) Trained model weights
+├── figures/               # (ignored) Output figures (PNGs / GIFs)
+│
+├── generate_dataset.py
+├── train_operator.py
+├── eval_operator.py
+├── animate_comparison.py
+├── animate_efield.py
 └── README.md
 ```
 
 ---
 
-## 🔧 Installation
-
-### 1. Clone & prepare environment
+# 🔧 Installation
 
 ```bash
 git clone <repo-url>
@@ -119,26 +119,26 @@ pyyaml
 
 ---
 
-## 🧪 1. Generate PDE Dataset
-
-Dataset akan tersimpan dalam format `.npz`, masing-masing berisi:
-
-* `sigma` – conductivity map
-* `electrode_potential` – tDCS potential mask
-* `V` – PDE potential solution
-* `Ex`, `Ey` – electric field components
-
-Jalankan:
+# 🧪 1. Generate PDE Dataset
 
 ```bash
-python generate_dataset.py --n_samples 200 --output_dir data/brainfield
+python generate_dataset.py \
+    --n_samples 200 \
+    --output_dir data/brainfield
 ```
+
+Each `.npz` contains:
+
+* `sigma`
+* `electrode_potential`
+* `V` (potential field)
+* `Ex`, `Ey` (electric field components)
 
 ---
 
-## 🎓 2. Train Neural Operator Surrogate
+# 🎓 2. Train Neural Operator Surrogate
 
-### 🔹 Simple FNO training:
+### ➤ Simple FNO training
 
 ```bash
 python train_operator.py \
@@ -150,7 +150,7 @@ python train_operator.py \
     --device cuda
 ```
 
-### 🔹 Using YAML config:
+### ➤ Using a YAML config
 
 ```bash
 python train_operator.py \
@@ -158,7 +158,7 @@ python train_operator.py \
     --config experiments/exp_fno_training.yaml
 ```
 
-Checkpoints akan otomatis tersimpan di:
+Best model checkpoints are saved in:
 
 ```
 checkpoints/best_model_epochXX.pt
@@ -166,7 +166,9 @@ checkpoints/best_model_epochXX.pt
 
 ---
 
-## 📈 3. Evaluate & Visualize Results
+# 📈 3. Evaluation & Visual Results
+
+### ➤ Generate comparison plot
 
 ```bash
 python eval_operator.py \
@@ -177,54 +179,105 @@ python eval_operator.py \
     --save_path figures/comparison_example.png
 ```
 
-Ini akan menghasilkan plot seperti:
-
-* **Ground truth PDE field**
-* **Predicted neural operator field**
-* **Absolute error map**
-
 ---
 
 ## 🖼 Example Output
 
-*(Tambahkan gambar hasilmu setelah di-generate)*
+> **Actual figure is generated from your model — your result is shown below.**
 
-```markdown
-![Comparison Example](figures/comparison_example.png)
+### **Ground Truth vs Predicted vs Error Map**
+
+![comparison](./figures/comparison_example.png)
+
+(Your actual image should be placed here.
+You can also embed the two images you uploaded:)
+
+**Sample 1**
+
+![gt-pred-error](./figures/sample1.png)
+
+**Sample 2**
+
+![gt-pred-error2](./figures/sample2.png)
+
+---
+
+# 🎞 4. Animations
+
+### ➤ Comparison GIF (PDE vs Prediction)
+
+```bash
+python animate_comparison.py \
+    --data_dir data/brainfield \
+    --checkpoint checkpoints/best_model_epoch50.pt \
+    --num_frames 15 \
+    --save_path figures/comparison.gif
+```
+
+### ➤ Electric Field GIF (Ex, Ey)
+
+```bash
+python animate_efield.py \
+    --data_dir data/brainfield \
+    --checkpoint checkpoints/best_model_epoch50.pt \
+    --num_frames 15 \
+    --save_path figures/efield.gif
 ```
 
 ---
 
-## 🧠 Scientific Motivation
+# 🧠 Scientific Motivation
 
-Stimulation modalities seperti **tDCS** menghasilkan medan listrik yang menyebar melalui struktur anatomi otak—dipengaruhi oleh konduktivitas yang berbeda-beda (brain, skull, scalp).
+Stimulation techniques such as **tDCS** induce weak electric fields across brain tissue.
+These fields depend strongly on:
 
-Dengan memodelkan ini lewat PDE dan mempelajari surrogate neural operator:
+* head geometry
+* conductivity contrasts
+* electrode position
+* applied potential
 
-### ✔ Kita mendapatkan solver yang jauh lebih cepat
+Modeling such fields is essential for:
 
-### ✔ Bisa digunakan untuk parameter sweeps
+* neurotechnology
+* brain–computer interfaces
+* computational neuroscience
+* bioelectromagnetics research
 
-### ✔ Berguna untuk neurotechnology & brain-interface modeling
+This project demonstrates:
 
-### ✔ Ini sangat align dengan riset seperti:
+### ✔ PDE modeling skills
 
-* **Computational neuroscience**
-* **Biophysical modeling of EEG/MEG**
-* **Electromagnetic brain-field simulation**
-* **Operator learning for PDEs**
+### ✔ Computational physics background
 
-Project ini dapat memperlihatkan:
+### ✔ Experience in neural operators
 
-* Foundation kuat di computational physics
-* Pemahaman PDE & bioelectromagnetics
-* Experience neural operator modeling
-* Skill HPC / scientific ML
+### ✔ Ability to integrate physics + ML
+
+### ✔ Direct relevance to brain physics and neurotechnology
+
+This aligns closely with topics such as:
+
+* EEG/MEG forward models
+* transcranial stimulation modeling
+* computational neurophysics
+* ML-based surrogate modeling for PDEs
 
 ---
 
-## 🤝 Contact
+# 📜 Citation
 
-Aulia Octaviani
-GitHub: **aoctavia**
-Email: **[auliaoctavvia@gmail.com](mailto:auliaoctavvia@gmail.com)**
+If you use this framework, please cite:
+
+```
+Octaviani, A. (2025).
+BrainField-Operator: Neural Operator Surrogates for Bioelectromagnetic Brain Field Modeling.
+GitHub Repository.
+```
+
+---
+
+# 🙋‍♀️ Author
+
+**Aulia Octaviani**
+Email: `auliaoctavvia@gmail.com`
+GitHub: [aoctavia](https://github.com/aoctavia)
