@@ -1,0 +1,3 @@
+def create_conductivity_map(mask, sigma_brain, sigma_skull, sigma_scalp):
+    """Return sigma(x,y) array with piecewise-constant conductivities."""
+    ...

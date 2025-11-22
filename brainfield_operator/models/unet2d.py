@@ -1,0 +1,6 @@
+class UNet2D(nn.Module):
+    def __init__(self, in_channels=3, out_channels=1, base_channels=32):
+        ...
+
+    def forward(self, x):
+        ...

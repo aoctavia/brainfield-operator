@@ -1,0 +1,17 @@
+# experiments/exp_tDCS_baseline.yaml
+grid:
+  nx: 64
+  ny: 64
+  length: 0.2
+
+conductivity:
+  sigma_brain: 0.33
+  sigma_skull: 0.015
+  sigma_scalp: 0.43
+
+training:
+  batch_size: 8
+  lr: 0.001
+  num_epochs: 80
+  model_type: "fno2d"
+  device: "cuda"
