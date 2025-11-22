@@ -1,0 +1,20 @@
+# experiments/exp_fno_training.yaml
+
+grid:
+  nx: 64
+  ny: 64
+  length: 0.20
+
+training:
+  model_type: fno2d
+  batch_size: 8
+  lr: 0.001
+  num_epochs: 80
+  device: cuda
+  seed: 42
+
+fno:
+  width: 64
+  modes_x: 16
+  modes_y: 16
+  n_layers: 4

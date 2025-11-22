@@ -1,0 +1,4 @@
+mkdir -p data figures checkpoints
+touch data/.gitkeep
+touch figures/.gitkeep
+touch checkpoints/.gitkeep

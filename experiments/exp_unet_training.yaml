@@ -1,0 +1,17 @@
+# experiments/exp_unet_training.yaml
+
+grid:
+  nx: 64
+  ny: 64
+  length: 0.20
+
+training:
+  model_type: unet2d
+  batch_size: 8
+  lr: 0.0005
+  num_epochs: 100
+  device: cuda
+  seed: 123
+
+unet:
+  base_channels: 32

@@ -1,0 +1,33 @@
+# experiments/exp_pde_baseline.yaml
+
+grid:
+  nx: 64
+  ny: 64
+  length: 0.20
+
+geometry:
+  brain_radius: 0.06
+  skull_thickness: 0.007
+  scalp_thickness: 0.008
+
+conductivity:
+  sigma_brain: 0.33
+  sigma_skull: 0.015
+  sigma_scalp: 0.43
+
+electrode:
+  electrode_radius: 0.01
+  anode_potential: 1.0
+  cathode_potential: -1.0
+
+pde:
+  max_iter: 4000
+  tol: 1e-5
+
+training:
+  # No training here – only PDE dataset generation
+  batch_size: 8
+  lr: 0.001
+  num_epochs: 50
+  device: cuda
+  seed: 42
