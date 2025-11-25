@@ -15,6 +15,8 @@ It integrates:
 * **Neural Operator surrogate learning** using Fourier Neural Operators (FNO)
 * **High-quality visualization and animation tools**
 
+Preprint : https://doi.org/10.5281/zenodo.17685776
+
 This project bridges **computational physics + PDE modeling** with **computational neuroscience and neurotechnology**, closely aligned with research such as:
 
 > *Biophysical modeling of electrical brain signals and the influence of external electromagnetic fields on neural dynamics (e.g., NeuroNanotech / UiO).*
